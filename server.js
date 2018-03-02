@@ -2,12 +2,16 @@ const express = require('express');
 // const fs = require('fs');
 const request = require('request');
 const cheerio = require('cheerio');
-const app = express();
+const cors = require('cors');
 const commaNum = require('comma-number');
 const { stopwatch } = require('durations');
 const async = require('async');
 const cal = require('./api/calculator');
 const screener = require('./api/screener.js');
+
+const app = express();
+
+app.use(cors());
 
 app.get('/api/scrape', function(req, res) {
   const codeList = screener.givenArray();
@@ -39,7 +43,7 @@ app.get('/api/scrape', function(req, res) {
     });
   }, function (err, scode) {
     if (err) console.log('Error is', err, scode);
-    res.send(result);
+    res.json({ response: result });
   });
 
   /*que.drain = function() {
@@ -100,9 +104,11 @@ function exteacted(scode, html) {
     finData = {
       Name: scode,
       Score: fair.Indicator,
-      Price: fair.Price,
+      Value: fair.Price,
       MktCap: price,
       Diff: diff,
+      NetGrowth: fair.NetGrowth,
+      PriceGrowth: fair.PriceGrowth,
       Content: fair.Positive,
     };
   });

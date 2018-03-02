@@ -50,8 +50,9 @@ module.exports = {
         },
       },
       {
-        test: /\.scss$/,
-        loader: 'style-loader!css-loader!sass-loader',
+        test: /\.(scss|css)$/,
+        // loader: 'style-loader!css-loader!sass-loader',
+        loader: ['style-loader', 'css-loader', 'sass-loader'],
       },
       {
         test: /\.(jpe?g|png|gif|svg)$/i,
