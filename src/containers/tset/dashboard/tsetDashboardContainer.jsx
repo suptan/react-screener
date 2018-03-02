@@ -9,6 +9,20 @@ export default class TsetDashboardContainer extends React.Component {
     };
   }
 
+  componentDidMount() {
+    this.getData()
+      .then((res) => {
+        console.log(res);
+        return res.json();
+      });
+  }
+
+  getData = () => {
+    // fetch('/scrape') // proxy not working
+    fetch('http://localhost:8081/api/scrape')
+      .then(response => response.json());
+  };
+
   render() {
     return (
       <div>

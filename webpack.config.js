@@ -43,7 +43,11 @@ module.exports = {
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
-        loaders: ['babel-loader'],
+        loaders: 'babel-loader',
+        query: {
+          presets: ['react', 'es2015', 'react-hmre'],
+          plugins: ['transform-class-properties']
+        },
       },
       {
         test: /\.scss$/,

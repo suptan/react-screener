@@ -1,1 +1,1 @@
-export { default as TsetDashboardContainer } from './testDashboardContainer';
+export { default as TsetDashboardContainer } from './tsetDashboardContainer';

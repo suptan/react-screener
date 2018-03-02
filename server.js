@@ -10,13 +10,13 @@ const cal = require('./api/calculator');
 const screener = require('./api/screener.js');
 
 app.get('/api/scrape', function(req, res) {
-  const sw = stopwatch()
   const codeList = screener.givenArray();
+  let result = [];
 
   // let que = async.queue(function(task, done){
-  async.map(codeList, function(scode, done){
-    // let scode = task.scode
+  async.map(codeList, function(scode, next) {
     console.log(`Task ${scode}`);
+    const sw = stopwatch();
     const url = `https://www.set.or.th/set/companyhighlight.do?symbol=${scode}&ssoPageId=5&language=en&country=US`;
     // url = 'https://www.set.or.th/set/companyhighlight.do?symbol=HANA&ssoPageId=5&language=th&country=TH';
   
@@ -25,8 +25,8 @@ app.get('/api/scrape', function(req, res) {
     sw.start();
   
     request(url, function(error, response, html) {
-      if(!error){
-        exteacted(scode, html)
+      if (!error){
+        result.push(exteacted(scode, html));
       }
   
       /*fs.writeFile('output.json', JSON.stringify(json, null, 4), function(err){
@@ -35,11 +35,12 @@ app.get('/api/scrape', function(req, res) {
   
       sw.stop()
       console.log(`${scode} ${sw} have elapsed`)
-      done()
-    })
-  }, function(err, res) {
-    console.log(err, res)
-  })
+      next(false, scode);
+    });
+  }, function (err, scode) {
+    if (err) console.log('Error is', err, scode);
+    res.send(result);
+  });
 
   /*que.drain = function() {
     console.log('all items have been processed');
@@ -52,16 +53,17 @@ app.get('/api/scrape', function(req, res) {
   }*/
 
   // End app
-  res.send({
-    express: codeList,
-  });
+  // result will be the same as initialize state
+  // becuase async
+  console.log('End with', result)
+  // res.send(result);
 });
 
 function exteacted(scode, html) {
   console.log('call successfully');
   var $ = cheerio.load(html);
 
-  var finData = [];
+  let finData = {};
   let title, release, rating, divide = 1, price = 0, indicator = 10;
   var json = { title : "", release : "", rating : ""};
   var isLastColValid = false;
@@ -90,10 +92,22 @@ function exteacted(scode, html) {
       })
     })
     let fair = cal.processIncomeStatement($('tbody').first(), divide)
-    price = cal.processBalanceSheet($('tbody')[1])
+    price = cal.processBalanceSheet($('tbody')[1]);
+    const diff = ((price - fair.Price) / fair.Price) * 100;
 
-    console.log(`${scode} ${commaNum(fair)} vs ${price}`)
-  })
+    console.log(`${scode} ${commaNum(fair.Price)} vs ${price}`)
+
+    finData = {
+      Name: scode,
+      Score: fair.Indicator,
+      Price: fair.Price,
+      MktCap: price,
+      Diff: diff,
+      Content: fair.Positive,
+    };
+  });
+
+  return finData;
 }
 
 app.listen('8081');
