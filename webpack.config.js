@@ -46,7 +46,7 @@ module.exports = {
         loaders: 'babel-loader',
         query: {
           presets: ['react', 'es2015', 'react-hmre'],
-          plugins: ['transform-class-properties']
+          plugins: ['transform-class-properties'],
         },
       },
       {
@@ -56,6 +56,13 @@ module.exports = {
       },
       {
         test: /\.(jpe?g|png|gif|svg)$/i,
+        loader: 'url-loader',
+        options: {
+          limit: 10000,
+        },
+      },
+      {
+        test: /\.(woff|woff2|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
         loader: 'url-loader',
         options: {
           limit: 10000,
