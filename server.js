@@ -104,12 +104,13 @@ function exteacted(scode, html) {
     finData = {
       Name: scode,
       Score: fair.Indicator,
-      Value: fair.Price,
+      Value: +fair.Price.toFixed(3),
       MktCap: price,
-      Diff: diff,
-      NetGrowth: fair.NetGrowth,
-      PriceGrowth: fair.PriceGrowth,
+      Diff: +diff.toFixed(2),
+      NetGrowth: +fair.NetGrowth.toFixed(3),
+      PriceGrowth: +fair.PriceGrowth.toFixed(2),
       Content: fair.Positive,
+      Comment: fair.Comment,
     };
   });
 

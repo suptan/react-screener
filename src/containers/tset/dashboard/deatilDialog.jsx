@@ -5,26 +5,26 @@ import { Modal, Button } from 'react-bootstrap';
 import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
 
 const columns = [{
-  dataField: 'Name',
-  text: 'Name',
+  dataField: 'Liabilities',
+  text: 'Debt',
 }, {
-  dataField: 'Score',
-  text: 'CG',
+  dataField: 'PaidUpCapital',
+  text: 'PaidUp Capital',
 }, {
-  dataField: 'Value',
-  text: 'Price',
+  dataField: 'Revenue',
+  text: 'Revenue',
 }, {
-  dataField: 'MktCap',
-  text: 'MCap',
+  dataField: 'NetProfit',
+  text: 'NetP',
 }, {
-  dataField: 'Diff',
-  text: 'Diff',
+  dataField: 'ROA',
+  text: 'ROA',
 }, {
-  dataField: 'NetGrowth',
-  text: 'NPG',
+  dataField: 'ROE',
+  text: 'ROE',
 }, {
-  dataField: 'PriceGrowth',
-  text: 'ValueG',
+  dataField: 'NetProfitMargin',
+  text: 'Margin',
 }];
 
 const DeatilDialog = props => (
@@ -36,9 +36,18 @@ const DeatilDialog = props => (
       {
         <BootstrapTable
           keyField="Name"
-          data={props.data}
+          data={props.datas}
           columns={columns}
         />}
+      <p>Comment</p>
+      <ul>
+        {Object.keys(props.comments).map((keyy) => {
+          return (<li key={keyy}>
+            <strong>{keyy}</strong> - {props.comments[keyy]}
+          </li>);
+        },
+        )}
+      </ul>
     </Modal.Body>
     <Modal.Footer>
       <Button onClick={props.handleClose}>Close</Button>
@@ -49,6 +58,8 @@ const DeatilDialog = props => (
 DeatilDialog.propTypes = {
   showDetail: PropTypes.bool.isRequired,
   handleClose: PropTypes.func.isRequired,
+  datas: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  comments: PropTypes.shape({}).isRequired,
 };
 
 export default DeatilDialog;

@@ -18,7 +18,7 @@ export default class TsetDashboardContainer extends React.Component {
       ],
       doT: undefined,
       showDetail: false,
-      selectedRow: [],
+      selectedRow: undefined,
     };
   }
 
@@ -75,10 +75,15 @@ export default class TsetDashboardContainer extends React.Component {
   }
 
   handleShow(row) {
+    const anasis = JSON.parse(JSON.stringify(this.state.vm.find(el => el.Name === row.Name)));
+    // B table require array
+    anasis.Content = [anasis.Content];
+
     this.setState({
-      selectedRow: [row],
-      showDetail: true
+      selectedRow: anasis,
+      showDetail: true,
     });
+    console.log(this.state.selectedRow)
   }
 
   renderFilter() {
@@ -162,15 +167,24 @@ export default class TsetDashboardContainer extends React.Component {
     />)
   }
 
+  renderDialog() {
+    if (!this.state.selectedRow) return null
+
+    return (
+      <DeatilDialog
+        showDetail={this.state.showDetail}
+        datas={this.state.selectedRow.Content}
+        handleClose={this.handleClose}
+        comments={this.state.selectedRow.Comment}
+      />
+    )
+  }
+
   render() {
     return (
       <div>
         <h2>Stock Exchange Thailand</h2>
-        <DeatilDialog
-          showDetail={this.state.showDetail}
-          data={this.state.selectedRow}
-          handleClose={this.handleClose}
-        />
+        {this.renderDialog()}
         {this.renderFilter()}
         {this.renderTable2()}
         {this.renderTable()}
