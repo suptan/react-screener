@@ -8,6 +8,7 @@ const { stopwatch } = require('durations');
 const async = require('async');
 const cal = require('./api/calculator');
 const screener = require('./api/screener.js');
+const ft = require('./api/fileTranformer.js');
 
 const app = express();
 
@@ -65,6 +66,9 @@ app.get('/api/scrape', function(req, res) {
 
 app.get('/api/jitscrape', (req, res) => {
   const obj = JSON.parse(fs.readFileSync('file.txt', 'utf8'));
+
+  // const company = ft.parse(obj);
+  ft.parse(obj);
 
   res.json(obj);
 });
