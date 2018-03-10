@@ -1,5 +1,5 @@
 const express = require('express');
-// const fs = require('fs');
+const fs = require('fs');
 const request = require('request');
 const cheerio = require('cheerio');
 const cors = require('cors');
@@ -61,6 +61,12 @@ app.get('/api/scrape', function(req, res) {
   // becuase async
   console.log('End with', result)
   // res.send(result);
+});
+
+app.get('/api/jitscrape', (req, res) => {
+  const obj = JSON.parse(fs.readFileSync('file.txt', 'utf8'));
+
+  res.json(obj);
 });
 
 function exteacted(scode, html) {
