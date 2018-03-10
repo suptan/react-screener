@@ -67,10 +67,10 @@ app.get('/api/scrape', function(req, res) {
 app.get('/api/jitscrape', (req, res) => {
   const obj = JSON.parse(fs.readFileSync('file.txt', 'utf8'));
 
-  // const company = ft.parse(obj);
-  ft.parse(obj);
+  const company = ft.parse(obj);
+  const result = cal.measureCoPerf(company);
 
-  res.json(obj);
+  res.json(result);
 });
 
 function exteacted(scode, html) {

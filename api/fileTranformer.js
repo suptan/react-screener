@@ -25,6 +25,7 @@ module.exports = {
         Net: company.Net,
         ROE: company.ROE,
         ROA: company.ROA,
+        Margin: company.Margin,
         Mkt: company.Mkt[company.Mkt.Leght - 1],
       };
 
