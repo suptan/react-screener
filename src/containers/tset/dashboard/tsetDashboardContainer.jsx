@@ -187,7 +187,6 @@ export default class TsetDashboardContainer extends React.Component {
         {this.renderDialog()}
         {this.renderFilter()}
         {this.renderTable2()}
-        {this.renderTable()}
       </div>
     );
   }
