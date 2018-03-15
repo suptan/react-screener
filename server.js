@@ -90,7 +90,7 @@ function exteacted(scode, html) {
     });
     const fair = cal.processIncomeStatement($('tbody').first(), divide);
     const price = cal.processBalanceSheet($('tbody')[1]);
-    const diff = ((price - fair.Price) / fair.Price) * 100;
+    const diff = (fair.Price / price) * 100;
 
     // console.log(`${scode} ${commaNum(fair.Price)} vs ${price}`);
 
