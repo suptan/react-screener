@@ -3,6 +3,7 @@ import BootstrapTable from 'react-bootstrap-table-next';
 import 'react-bootstrap-table-next/dist/react-bootstrap-table2.min.css';
 
 import DeatilDialog from './deatilDialog';
+import DataTable from '../../../components/dataTable';
 
 export default class TsetDashboardContainer extends React.Component {
   constructor(props) {
@@ -128,43 +129,9 @@ export default class TsetDashboardContainer extends React.Component {
   }
 
   renderTable2() {
-    const columns = [{
-      dataField: 'Name',
-      text: 'Name',
-    }, {
-      dataField: 'Score',
-      text: 'CG',
-    }, {
-      dataField: 'Value',
-      text: 'Price',
-    }, {
-      dataField: 'MktCap',
-      text: 'MCap',
-    }, {
-      dataField: 'Diff',
-      text: 'Diff',
-    }, {
-      dataField: 'NetGrowth',
-      text: 'NPG',
-    }, {
-      dataField: 'PriceGrowth',
-      text: 'ValueG',
-    }];
-    
-    const selectRow = {
-      mode: 'radio',
-      clickToSelect: true,
-      onSelect: (row) => { this.handleShow(row) },
-    };
-    
     if(!this.state.doT) return null
     
-    return (<BootstrapTable
-      keyField='Name'
-      data={ this.state.doT }
-      columns={ columns }
-      selectRow={ selectRow }
-    />)
+    return (<DataTable data={ this.state.doT } />)
   }
 
   renderDialog() {
