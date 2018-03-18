@@ -26,7 +26,7 @@ module.exports = {
         ROE: company.ROE,
         ROA: company.ROA,
         Margin: company.Margin,
-        Mkt: company.Mkt[company.Mkt.Leght - 1],
+        Mkt: company.Mkt[0],
       };
 
       result.push(jsonType);
