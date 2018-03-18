@@ -26,23 +26,18 @@ const columns = [{
   text: 'ValueG',
 }];
 
-const selectRow = {
-  mode: 'radio',
-  clickToSelect: true,
-  onSelect: (row) => { this.handleShow(row) },
-};
-
 const DataTable = props => (
   <BootstrapTable
     keyField='Name'
     data={ props.data }
     columns={ columns }
-    selectRow={ selectRow }
+    selectRow={ props.selectRow }
   />
 );
 
 DataTable.propTypes = { 
   data: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  selectRow: PropTypes.shape({}).isRequired,
 }
 
 export default DataTable;
