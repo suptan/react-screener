@@ -9,6 +9,7 @@ const columns = [{
 }, {
   dataField: 'Score',
   text: 'CG',
+  sort: true,
 }, {
   dataField: 'Value',
   text: 'Price',
