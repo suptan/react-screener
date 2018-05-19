@@ -26,6 +26,9 @@ const App = () => (
         <li>
           <Link to="/tset">SET</Link>
         </li>
+        <li>
+          <Link to="/recomp">Recomp</Link>
+        </li>
       </ul>
       <Routes />
     </main>
