@@ -33,6 +33,7 @@ export default class DataTableContainer extends Component {
 
     return (
       <DeatilDialog
+        header={this.state.selectedRow.Name}
         showDetail={this.state.showDetail}
         datas={this.state.selectedRow.Content}
         handleClose={this.handleClose}

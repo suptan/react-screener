@@ -30,7 +30,7 @@ const columns = [{
 const DeatilDialog = props => (
   <Modal show={props.showDetail} onHide={props.handleClose}>
     <Modal.Header closeButton>
-      <Modal.Title>Modal heading</Modal.Title>
+      <Modal.Title>{props.header}</Modal.Title>
     </Modal.Header>
     <Modal.Body>
       {
@@ -56,6 +56,7 @@ const DeatilDialog = props => (
 );
 
 DeatilDialog.propTypes = {
+  header: PropTypes.string.isRequired,
   showDetail: PropTypes.bool.isRequired,
   handleClose: PropTypes.func.isRequired,
   datas: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
